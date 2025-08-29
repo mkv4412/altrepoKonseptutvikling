@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drake - Unreleased Tracks</title>
+    <style>
+        /* 
+          🎨 PAGE STYLES 
+          - Change fonts, colors, and layout here
+          - Background image can be updated in the body section
+        */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Comic Sans MS", "Comic Sans", cursive;
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1713075693930-b593e701b6d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkcmFrZSUyMGFsYnVtJTIwY292ZXIlMjB2aWV3cyUyMG11c2ljfGVufDF8fHx8MTc1NjQ2Nzk5MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* 
+          🔙 BACK BUTTON STYLES 
+          - Position and appearance of the back button
+          - Change colors, size, and position here
+        */
+        .back-button {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 20;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: opacity 0.2s ease;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            opacity: 0.8;
+        }
+
+        /* 
+          📱 MAIN CONTENT CONTAINER 
+          - Glass-morphism effect styling
+          - Change background, blur, borders here
+        */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 80px 16px 40px 16px;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 1024px;
+        }
+
+        .glass-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        /* 
+          🎵 TYPOGRAPHY STYLES 
+          - Headers and text styling
+          - Change colors, sizes, spacing here
+        */
+        h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        h3 {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        .artist-link {
+            color: #93c5fd;
+            text-decoration: underline;
+            text-decoration-color: rgba(147, 197, 253, 0.5);
+        }
+
+        .artist-link:hover {
+            color: #bfdbfe;
+        }
+
+        /* 
+          🎤 ARTIST SECTION STYLES 
+          - Featured artist container styling
+          - Change background gradients and spacing here
+        */
+        .artist-section {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .artist-container {
+            position: relative;
+            width: 100%;
+            max-width: 576px;
+        }
+
+        .artist-box {
+            background: linear-gradient(135deg, #111827 0%, #000000 50%, #374151 100%);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(75, 85, 99, 0.5);
+        }
+
+        .artist-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .music-icon {
+            color: #34d399;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .artist-label {
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+
+        .embed-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 2px solid rgba(75, 85, 99, 0.3);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 
+          🎵 TRACKS LIST STYLES 
+          - Individual track container styling
+          - Change spacing, colors, and layout here
+        */
+        .tracks-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .track-item {
+            position: relative;
+        }
+
+        .track-container {
+            background: linear-gradient(90deg, #111827 0%, #000000 50%, #111827 100%);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(75, 85, 99, 0.5);
+        }
+
+        .track-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .play-button {
+            background-color: #10b981;
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+
+        .play-icon {
+            color: black;
+            font-size: 16px;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-title {
+            margin-bottom: 4px;
+        }
+
+        .track-subtitle {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        /* 
+          📱 RESPONSIVE DESIGN 
+          - Mobile and tablet adjustments
+        */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 60px 8px 20px 8px;
+            }
+            
+            .glass-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* 
+          🎬 IFRAME STYLES 
+          - Spotify embed styling
+        */
+        iframe {
+            border-radius: 12px;
+            width: 100%;
+            height: 152px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+      🔙 BACK BUTTON SECTION 
+      - Links back to homepage
+      - Change text or styling as needed
+    -->
+    <a href="index.html" class="back-button">←</a>
+
+    <!-- 
+      📱 MAIN CONTENT SECTION 
+      - All page content goes here
+    -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="glass-container">
+                <!-- 
+                  🎵 PAGE TITLE SECTION 
+                  - Change title text and artist link here
+                -->
+                <h1>
+                    Unreleased // <a 
+                        href="https://us.octobersveryown.com/" 
+                        target="_blank" 
+                        rel="noopener"
+                        class="artist-link"
+                    >
+                        Drake
+                    </a>
+                </h1>
+                
+                <!-- 
+                  🎤 ARTIST SPOTIFY EMBED SECTION 
+                  - Replace Spotify artist embed URL below
+                  - Change "Featured Artist" text if needed
+                -->
+                <div class="artist-section">
+                    <div class="artist-container">
+                        <div class="artist-box">
+                            <div class="artist-header">
+                                <span class="music-icon">🎵</span>
+                                <span class="artist-label">Featured Artist</span>
+                            </div>
+                            
+                            <div class="embed-container">
+                                <iframe 
+                                    src="https://open.spotify.com/embed/artist/3TVXtAsR1Inumwj472S9r4?utm_source=generator"
+                                    allowfullscreen
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 
+                  📋 TRACKS SECTION HEADER 
+                  - Change section title here
+                -->
+                <h2>Tracks</h2>
+                
+                <!-- 
+                  🎵 INDIVIDUAL TRACKS LIST 
+                  - Add/remove tracks by copying/deleting <li> elements
+                  - Change track names and Spotify URLs below
+                -->
+                <ul class="tracks-list">
+                    <!-- Track 1: Against The Wind -->
+                    <li class="track-item">
+                        <div class="track-container">
+                            <div class="track-header">
+                                <div class="play-button">
+                                    <span class="play-icon">▶</span>
+                                </div>
+                                <div class="track-info">
+                                    <h3 class="track-title">"Against The Wind"</h3>
+                                    <p class="track-subtitle">Unreleased Track</p>
+                                </div>
+                            </div>
+                            
+                            <div class="embed-container">
+                                <iframe 
+                                    src="https://open.spotify.com/embed/episode/7fdMGb5mSv5cZyn5HpgQEd?utm_source=generator"
+                                    allowfullscreen
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- Track 2: Yves Slatt Laurent -->
+                    <li class="track-item">
+                        <div class="track-container">
+                            <div class="track-header">
+                                <div class="play-button">
+                                    <span class="play-icon">▶</span>
+                                </div>
+                                <div class="track-info">
+                                    <h3 class="track-title">"Yves Slatt Laurent"</h3>
+                                    <p class="track-subtitle">Unreleased Track</p>
+                                </div>
+                            </div>
+                            
+                            <div class="embed-container">
+                                <iframe 
+                                    src="https://open.spotify.com/embed/episode/3z8AjFVw70qICpa61t30Jn?utm_source=generator"
+                                    allowfullscreen
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                                </iframe>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
